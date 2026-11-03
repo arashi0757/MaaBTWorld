@@ -29,7 +29,8 @@
         }
     ],
     "import": [
-        "tasks/StartUp.json"
+        "tasks/StartUp.json",
+        "tasks/Resources.json"
     ],
     "agent": [
         {

@@ -1,0 +1,233 @@
+{
+    "资源_世界树_仅领取": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "资源_世界树_成长信息",
+            "[JumpBack]点击世界树",
+            "[JumpBack]点走未知生物",
+            "[JumpBack]前往主页面右半页",
+            "[JumpBack]退出各类页面"
+        ]
+    },
+    "资源_世界树_成长信息": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "成长信息",
+                "roi": [939, 98, 210, 100]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 5000,
+        "next": ["资源_世界树_获取全部"]
+    },
+    "资源_世界树_获取全部": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "获取全部",
+                "roi": [514, 532, 284, 154]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": []
+    },
+    "资源_世界树_免费培养": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "资源_世界树_免费准备",
+            "[JumpBack]点击世界树",
+            "[JumpBack]点走未知生物",
+            "[JumpBack]前往主页面右半页",
+            "[JumpBack]退出各类页面"
+        ]
+    },
+    "资源_世界树_免费准备": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "世界树",
+                "roi": [125, 1, 224, 125]
+            }
+        },
+        "next": ["资源_世界树_免费点击"]
+    },
+    "资源_世界树_免费点击": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["免费", "免费培养"],
+                "roi": [959, 617, 183, 74]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1010, 589, 17, 13]
+            }
+        },
+        "timeout": 3000,
+        "next": ["资源_世界树_培养成功", "资源_世界树_免费上限"],
+        "max_hit": 1
+    },
+    "资源_世界树_免费上限": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["花朵数量已达上限", "已达上限"],
+                "roi": [416, 146, 419, 151]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [749, 458, 38, 19]
+            }
+        },
+        "next": []
+    },
+    "资源_世界树_培养成功": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "培养成功",
+                "roi": [400, 50, 500, 170]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": []
+    },
+    "资源_世界树_快速培养": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "资源_世界树_快速准备",
+            "[JumpBack]点击世界树",
+            "[JumpBack]点走未知生物",
+            "[JumpBack]前往主页面右半页",
+            "[JumpBack]退出各类页面"
+        ]
+    },
+    "资源_世界树_快速准备": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "世界树",
+                "roi": [125, 1, 224, 125]
+            }
+        },
+        "next": ["资源_世界树_快速界面", "[JumpBack]资源_世界树_切换快速"]
+    },
+    "资源_世界树_快速界面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "快速",
+                "roi": [954, 531, 125, 116]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "next": ["资源_世界树_选择20次"]
+    },
+    "资源_世界树_切换快速": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "worldtree/培养1次.png",
+                "roi": [932, 558, 127, 140]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1131, 594, 9, 9]
+            }
+        },
+        "post_delay": 2000,
+        "next": []
+    },
+    "资源_世界树_选择20次": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "worldtree/培养10次.png",
+                "roi": [1150, 448, 128, 121]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [7, 7, -14, -14]
+            }
+        },
+        "repeat": 2,
+        "repeat_delay": 1000,
+        "next": ["资源_世界树_确认培养"]
+    },
+    "资源_世界树_确认培养": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "培养",
+                "roi": [970, 555, 137, 99]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "next": ["资源_世界树_培养成功", "资源_世界树_取消超限"]
+    },
+    "资源_世界树_取消超限": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["花朵数量已达上限", "已达上限"],
+                "roi": [416, 146, 419, 151]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [500, 456, 39, 20]
+            }
+        },
+        "next": []
+    }
+}
