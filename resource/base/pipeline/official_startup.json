@@ -8,7 +8,11 @@
             "type": "DoNothing",
             "param": {}
         },
-        "next": ["官服启动_主页面切换账号", "[JumpBack]官服启动_前往主页面左半页", "[JumpBack]官服启动_退出各类页面"],
+        "next": [
+            "官服启动_主页面切换账号",
+            "[JumpBack]官服启动_前往主页面左半页",
+            "[JumpBack]官服启动_退出各类页面"
+        ],
         "max_hit": 12,
         "timeout": 20000
     },
