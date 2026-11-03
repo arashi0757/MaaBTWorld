@@ -35,6 +35,21 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Run check
         run: pnpm ${{ matrix.command }}
+      - name: Show formatting fixes
+        if: ${{ failure() && matrix.command == 'format:check' }}
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from "node:fs";
+          import {spawnSync} from "node:child_process";
+          import * as prettier from "prettier";
+          const result = spawnSync("pnpm", ["exec", "prettier", "--list-different", "."], {encoding: "utf8"});
+          if (![0, 1].includes(result.status)) throw new Error(result.stderr);
+          for (const path of result.stdout.trim().split("\n").filter(Boolean)) {
+            const options = await prettier.resolveConfig(path);
+            const content = await prettier.format(readFileSync(path, "utf8"), {...options, filepath: path});
+            console.log("FORMAT_FIX " + JSON.stringify({path, content}));
+          }
+          NODE
 
   python:
     name: Python lint and types
