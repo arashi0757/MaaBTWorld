@@ -2,38 +2,35 @@
     "task": [
         {
             "name": "✈️世界之外启动",
-            "entry": "启动世界之外",
+            "entry": "官服启动_启动世界之外",
             "controller": ["ADB模拟器"],
             "default_check": true,
             "option": ["请选择游戏版本", "使用指定账号登录"],
-            "description": "目前官服可以成功启动，其他渠道的需要反馈区服<br>不支持PlayCover，仅支持ADB模拟器<br>使用指定账号登录时,必须保证<span style=\"color:red\">分辨率为900x1600-320DPI-手机</span>，"
+            "description": "仅配置安卓官服。默认不切换账号，遇到验证码或授权确认请手动处理。识别到主页后结束；已限制重复操作次数，尚未游戏实测。"
         },
         {
             "name": "♻主页面切换账号",
-            "entry": "启动切换账号",
-            "controller": ["ADB模拟器", "PlayCover"],
+            "entry": "官服启动_启动切换账号",
+            "controller": ["ADB模拟器"],
             "default_check": false,
             "option": ["请选择游戏版本", "账号前3位"],
-            "description": "使用指定账号登录时,必须保证<span style=\"color:red\">分辨率为900x1600-320DPI-手机</span>，"
+            "description": "安卓官服的指定账号切换，默认不勾选。必须填写账号列表中可见的1至3位字母或数字；不要填密码。登录界面沿用原有坐标，原说明要求900×1600、320 DPI，尚未在小米14验证。"
         }
     ],
     "option": {
         "请选择游戏版本": {
             "type": "select",
+            "default_case": "世界之外官服",
+            "description": "当前开发版本仅接入安卓官服；未验证台服和渠道服。",
             "cases": [
                 {
                     "name": "世界之外官服",
                     "pipeline_override": {
-                        "世界之外官服": {
+                        "官服启动_世界之外官服": {
                             "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "世界之外台服",
-                    "pipeline_override": {
-                        "世界之外台服": {
-                            "enabled": true
+                        },
+                        "官服启动_sub_启动世外官服": {
+                            "enabled": false
                         }
                     }
                 }
@@ -41,12 +38,12 @@
         },
         "使用指定账号登录": {
             "type": "switch",
-            "description": "可只填1-2位连续内容，避开易混淆的字符（如Oo、Ss大小写不分、1lI认错等）",
+            "description": "默认关闭，使用当前已登录账号。开启后需填写账号识别内容；验证码和授权确认由用户手动处理。",
             "cases": [
                 {
                     "name": "No",
                     "pipeline_override": {
-                        "切换账号启动": {
+                        "官服启动_切换账号启动": {
                             "enabled": false
                         }
                     }
@@ -54,34 +51,46 @@
                 {
                     "name": "Yes",
                     "pipeline_override": {
-                        "切换账号启动": {
+                        "官服启动_切换账号启动": {
                             "enabled": true
                         }
                     },
                     "option": ["账号前3位"]
                 }
-            ]
+            ],
+            "default_case": "No"
         },
         "账号前3位": {
             "type": "input",
             "inputs": [
                 {
                     "name": "account",
-                    "description": "可只填1-2位连续内容，避开易混淆的字符（如Oo、Ss大小写不分、1lI认错等）",
-                    "label": "帐号前3位中的任意内容",
+                    "description": "填写能区分目标账号的连续内容，不要填写密码；不支持正则表达式。",
+                    "label": "账号列表中可见的1至3位字母或数字",
                     "pipeline_type": "string",
-                    "default": "xxx"
+                    "default": "",
+                    "verify": "^[A-Za-z0-9]{1,3}$",
+                    "pattern_msg": "请填写1至3位英文字母或数字，不能为空。"
                 }
             ],
             "pipeline_override": {
-                "选择登录账号": {
-                    "expected": ["{account}"],
-                    "focus": {
-                        "Node.Action.Succeeded": "登录账号：{account}"
+                "官服启动_选择登录账号": {
+                    "recognition": {
+                        "type": "OCR",
+                        "param": {
+                            "expected": ["{account}"],
+                            "roi": [461, 276, 104, 311]
+                        }
                     }
                 },
-                "确认已切好账号": {
-                    "expected": ["{account}"]
+                "官服启动_确认已切好账号": {
+                    "recognition": {
+                        "type": "OCR",
+                        "param": {
+                            "expected": ["{account}"],
+                            "roi": [454, 270, 121, 107]
+                        }
+                    }
                 }
             }
         }

@@ -1,0 +1,648 @@
+{
+    "官服启动_启动切换账号": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": ["官服启动_主页面切换账号", "[JumpBack]官服启动_前往主页面左半页", "[JumpBack]官服启动_退出各类页面"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_退出各类页面": {
+        "timeout": 20000,
+        "next": [
+            "官服启动_返回上级页面",
+            "官服启动_返回主页面",
+            "官服启动_点击空白处关闭",
+            "官服启动_退出获得奖励popop",
+            "官服启动_退出培养成功popop",
+            "官服启动_退出剧情进度popop",
+            "官服启动_关闭公告"
+        ],
+        "on_error": [],
+        "max_hit": 12
+    },
+    "官服启动_关闭公告": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["系统", "活动", "资讯"],
+                "roi": [621, 36, 439, 119]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1168, 127, 10, 8]
+            }
+        },
+        "next": ["官服启动_返回等待"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_返回等待": {
+        "post_delay": 1000,
+        "max_hit": 24
+    },
+    "官服启动_退出剧情进度popop": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["退出后不保存当前剧情进度", "剧情进度"],
+                "roi": [392, 229, 490, 179]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [749, 458, 38, 19]
+            }
+        },
+        "next": ["官服启动_返回等待"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_退出培养成功popop": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["培养成功"],
+                "roi": [496, 91, 278, 130]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1168, 127, 10, 8]
+            }
+        },
+        "next": ["官服启动_返回等待"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_退出获得奖励popop": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": ["popop/获得奖励.png", "popop/获得奖励1.png"],
+                "roi": [458, 68, 356, 205],
+                "green_mask": true
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1168, 127, 10, 8]
+            }
+        },
+        "next": ["官服启动_返回等待"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击空白处关闭": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["点击空白处关闭", "点击空白"],
+                "replace": [
+                    ["自", "白"]
+                ],
+                "roi": [514, 619, 256, 101]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1168, 127, 10, 8]
+            }
+        },
+        "next": ["官服启动_返回等待"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_返回主页面": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "popop/回到主页面.png",
+                "roi": [96, 13, 86, 92]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "next": ["官服启动_返回等待"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_返回上级页面": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "popop/返回上级页面.png",
+                "roi": [0, 0, 144, 138],
+                "green_mask": true
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "next": ["官服启动_返回等待"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_前往主页面左半页": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "前往左半页.png",
+                "roi": [0, 268, 101, 142]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "next": ["官服启动_已在主页面左半页"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_已在主页面左半页": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "日常内容",
+                "replace": [
+                    ["丙", "内"]
+                ],
+                "roi": [476, 100, 330, 209]
+            }
+        },
+        "max_hit": 12
+    },
+    "官服启动_主页面切换账号": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/点击个人.png",
+                "roi": [112, 606, 114, 104]
+            }
+        },
+        "next": ["官服启动_点击个人"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击个人": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/点击个人.png",
+                "roi": [112, 606, 114, 104]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [181, 626, 8, 10]
+            }
+        },
+        "next": ["官服启动_点击设置图标"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击设置图标": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "点击设置.png",
+                "roi": [112, 606, 114, 104]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [5, 5, -10, -10]
+            }
+        },
+        "next": ["官服启动_点击用户中心"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击用户中心": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "用户中心",
+                "roi": [1130, 242, 139, 88]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1196, 258, 9, 8]
+            }
+        },
+        "next": ["官服启动_点击切换账号"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击切换账号": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "切换账号",
+                "roi": [871, 167, 170, 121]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "post_delay": 4000,
+        "next": ["官服启动_点击账号下拉菜单"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击账号下拉菜单": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "login/点击账号下拉菜单.png",
+                "roi": [777, 274, 125, 120]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": ["官服启动_选择登录账号", "[JumpBack]官服启动_向下找找账号"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_向下找找账号": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["网易游戏", "网易"],
+                "roi": [565, 181, 194, 85]
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [717, 513, 4, 4],
+                "end": [720, 433, 3, 3],
+                "duration": 1000,
+                "end_hold": 500
+            }
+        },
+        "post_delay": 1500,
+        "next": [],
+        "max_hit": 12
+    },
+    "官服启动_选择登录账号": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["^$"],
+                "roi": [461, 276, 104, 311]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "post_delay": 3000,
+        "next": ["官服启动_确认已切好账号", "官服启动_点击账号下拉菜单"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_确认已切好账号": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["^$"],
+                "roi": [454, 270, 121, 107]
+            }
+        },
+        "next": ["官服启动_点击登录", "官服启动_选择登录账号"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击登录": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "登录",
+                "roi": [545, 389, 196, 86]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "post_delay": 3000,
+        "next": ["官服启动_点击开始旅程", "官服启动_点击登录"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_点击开始旅程": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "开始旅程",
+                "roi": [0, 400, 1280, 320]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": true
+            }
+        },
+        "next": [
+            "[JumpBack]官服启动_关闭公告",
+            "[JumpBack]官服启动_关闭活动弹窗",
+            "[JumpBack]官服启动_返回主页面",
+            "[JumpBack]官服启动_返回上级页面",
+            "[JumpBack]官服启动_退出获得奖励popop",
+            "[JumpBack]官服启动_退出剧情进度popop",
+            "[JumpBack]官服启动_点击空白处关闭",
+            "官服启动_已在主页面"
+        ],
+        "on_error": [],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_已在主页面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "日常内容",
+                "replace": [
+                    ["丙", "内"]
+                ],
+                "roi": [476, 100, 330, 209]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 20000,
+        "next": [
+            "[JumpBack]官服启动_关闭公告",
+            "[JumpBack]官服启动_关闭活动弹窗",
+            "[JumpBack]官服启动_返回主页面",
+            "[JumpBack]官服启动_返回上级页面",
+            "[JumpBack]官服启动_退出获得奖励popop",
+            "[JumpBack]官服启动_退出剧情进度popop",
+            "[JumpBack]官服启动_点击空白处关闭",
+            "官服启动_start_已在主页面"
+        ],
+        "max_hit": 12
+    },
+    "官服启动_start_已在主页面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "日常内容",
+                "replace": [
+                    ["丙", "内"]
+                ],
+                "roi": [476, 100, 330, 209]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "max_hit": 12,
+        "focus": {
+            "Node.Action.Succeeded": "已识别到游戏主页，官服启动流程结束"
+        }
+    },
+    "官服启动_关闭活动弹窗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "叉号.png",
+                "roi": [868, 36, 381, 246]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [5, 5, -10, -10]
+            }
+        },
+        "pre_delay": 1000,
+        "post_delay": 2000,
+        "next": [],
+        "max_hit": 12
+    },
+    "官服启动_启动世界之外": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": ["官服启动_切换账号启动", "官服启动_世界之外官服"],
+        "max_hit": 2,
+        "timeout": 20000,
+        "focus": {
+            "Node.Action.Starting": "准备启动世界之外安卓官服；遇到验证码或授权确认请手动处理"
+        }
+    },
+    "官服启动_世界之外官服": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "StartApp",
+            "param": {
+                "package": "com.netease.sjzw"
+            }
+        },
+        "next": [
+            "官服启动_start_已在主页面",
+            "官服启动_更新已完成,重新登录",
+            "[JumpBack]官服启动_下载资源中",
+            "[JumpBack]官服启动_连接资源服务器",
+            "[JumpBack]官服启动_关闭公告",
+            "[JumpBack]官服启动_关闭系统更新公告",
+            "官服启动_点击登录",
+            "官服启动_点击开始旅程",
+            "[JumpBack]官服启动_sub_启动世外官服",
+            "[JumpBack]官服启动_启动再等等"
+        ],
+        "max_hit": 2,
+        "timeout": 60000
+    },
+    "官服启动_启动再等等": {
+        "post_delay": 5000,
+        "max_hit": 24
+    },
+    "官服启动_sub_启动世外官服": {
+        "enabled": false,
+        "action": {
+            "type": "StartApp",
+            "param": {
+                "package": "com.netease.sjzw"
+            }
+        },
+        "max_hit": 2,
+        "next": ["官服启动_启动再等等"],
+        "timeout": 20000
+    },
+    "官服启动_关闭系统更新公告": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "叉号.png",
+                "roi": [1096, 59, 140, 139]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [5, 5, -10, -10]
+            }
+        },
+        "pre_delay": 1000,
+        "post_delay": 2000,
+        "next": [],
+        "max_hit": 12
+    },
+    "官服启动_连接资源服务器": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["连接资源服务器", "连接资源"],
+                "roi": [467, 591, 368, 114]
+            }
+        },
+        "post_delay": 5000,
+        "next": [],
+        "max_hit": 24
+    },
+    "官服启动_下载资源中": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["下载资源中", "下载资源"],
+                "roi": [330, 584, 314, 121]
+            }
+        },
+        "post_delay": 5000,
+        "next": [],
+        "max_hit": 24
+    },
+    "官服启动_更新已完成,重新登录": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["更新已完成", "重新登录"],
+                "roi": [372, 249, 512, 165]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [631, 458, 21, 11]
+            }
+        },
+        "next": ["官服启动_启动世界之外"],
+        "max_hit": 2,
+        "timeout": 20000
+    },
+    "官服启动_切换账号启动": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "StartApp",
+            "param": {
+                "package": "com.netease.sjzw"
+            }
+        },
+        "enabled": false,
+        "post_delay": 4000,
+        "next": [
+            "官服启动_主页面切换账号",
+            "官服启动_更新已完成,重新登录_切换账号",
+            "[JumpBack]官服启动_下载资源中",
+            "[JumpBack]官服启动_连接资源服务器",
+            "[JumpBack]官服启动_关闭公告",
+            "[JumpBack]官服启动_关闭系统更新公告",
+            "官服启动_点击登录用户中心",
+            "官服启动_点击账号下拉菜单",
+            "[JumpBack]官服启动_sub_启动世外官服",
+            "[JumpBack]官服启动_返回上级页面",
+            "[JumpBack]官服启动_启动再等等"
+        ],
+        "focus": "启动游戏并使用指定账号登录",
+        "max_hit": 2,
+        "timeout": 60000
+    },
+    "官服启动_点击登录用户中心": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": "用户中心",
+                "roi": [1151, 53, 118, 83]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [1208, 59, 13, 10]
+            }
+        },
+        "post_delay": 4000,
+        "next": ["官服启动_点击账号下拉菜单"],
+        "max_hit": 12,
+        "timeout": 20000
+    },
+    "官服启动_更新已完成,重新登录_切换账号": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": ["更新已完成", "重新登录"],
+                "roi": [372, 249, 512, 165]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [631, 458, 21, 11]
+            }
+        },
+        "next": ["官服启动_切换账号启动"],
+        "max_hit": 2,
+        "timeout": 20000
+    }
+}
